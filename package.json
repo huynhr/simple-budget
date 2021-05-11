@@ -1,6 +1,6 @@
 {
-  "name": "@snowpack/app-template-react-typescript",
-  "description": "A preconfigured template for Snowpack with React and TypeScript",
+  "name": "simple-budget",
+  "description": "Budget tracking app",
   "version": "2.1.2",
   "license": "MIT",
   "homepage": "https://github.com/snowpackjs/snowpack/tree/main/create-snowpack-app/app-template-react-typescript#readme",
