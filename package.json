@@ -19,12 +19,14 @@
     "start": "snowpack dev",
     "build": "snowpack build",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint \"src/**/*.{js,ts,tsx}\"",
     "test": "web-test-runner \"src/**/*.test.tsx\""
   },
   "dependencies": {
+    "eslint-plugin-jest": "^24.3.6",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "tslint": "^6.1.3"
   },
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.1.0",
@@ -37,10 +39,20 @@
     "@types/react": "^17.0.4",
     "@types/react-dom": "^17.0.3",
     "@types/snowpack-env": "^2.3.3",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
     "@web/test-runner": "^0.13.3",
+    "babel-eslint": "^10.1.0",
     "chai": "^4.3.4",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "prettier": "^2.2.1",
     "snowpack": "^3.3.7",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.2.4"
   },
   "gitHead": "a01616bb0787d56cd782f94cecf2daa12c7594e4"

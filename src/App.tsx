@@ -1,22 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import helper from './utils';
 
-interface AppProps {}
+interface AppProps {
+  name?: string;
+}
 
-function App({}: AppProps) {
+function App({ name }: AppProps): JSX.Element {
   // Create the count state.
   const [count, setCount] = useState(0);
   // Create the counter (+1 every second).
+
   useEffect(() => {
     const timer = setTimeout(() => setCount(count + 1), 1000);
+
     return () => clearTimeout(timer);
   }, [count, setCount]);
   // Return the App component.
+
+  helper();
+
+  /**
+   *
+   *
+   *
+   *
+   * Enter the cost
+   */
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <p>{name || 'Spicy Bob'}</p>
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
