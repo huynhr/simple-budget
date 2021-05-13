@@ -1,56 +1,80 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
-import helper from './utils';
 
-interface AppProps {
-  name?: string;
-}
+const options = ['Groceries', 'Rent', 'Internet', 'Entertainment'];
 
-function App({ name }: AppProps): JSX.Element {
+function App(): JSX.Element {
   // Create the count state.
-  const [count, setCount] = useState(0);
-  // Create the counter (+1 every second).
-
-  useEffect(() => {
-    const timer = setTimeout(() => setCount(count + 1), 1000);
-
-    return () => clearTimeout(timer);
-  }, [count, setCount]);
-  // Return the App component.
-
-  helper();
+  const [formState, setFormState] = useState({
+    amount: '',
+    category: '',
+    where: '',
+  });
 
   /**
-   *
-   *
-   *
-   *
-   * Enter the cost
+   * Create a page that allows you to enter budget details
+   * Should have a cost
+   * Allows you to select from a list of categories
+   * Enter description
+   * Location
+   * Enter a date
+   * Submit
    */
+  const handleSubmit = (e: { preventDefault: () => void }): void => {
+    e.preventDefault();
+
+    console.log({ formState });
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{name || 'Spicy Bob'}</p>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>
-          Page has been open for <code>{count}</code> seconds.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="amount">Amount:</label>
+        <input
+          type="number"
+          min="0"
+          name="amount"
+          step="0.01"
+          placeholder="0"
+          value={formState.amount}
+          onChange={(e) => {
+            setFormState((prevState) => ({
+              ...prevState,
+              amount: e.target.value,
+            }));
+          }}
+        />
+        <label htmlFor="where">Where?</label>
+        <label htmlFor="categories">Category</label>
+        <select
+          placeholder={options[0]}
+          value={formState.category}
+          onChange={(e) => {
+            setFormState((prevState) => ({
+              ...prevState,
+              category: e.target.value,
+            }));
+          }}
+        >
+          {options.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+        <input
+          type="text"
+          name="where"
+          value={formState.where}
+          onChange={(e) => {
+            setFormState((prevState) => ({
+              ...prevState,
+              where: e.target.value,
+            }));
+          }}
+        />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
