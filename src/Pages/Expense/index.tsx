@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Box,
-  Flex,
   FormErrorMessage,
   FormLabel,
   FormControl,
@@ -13,20 +12,24 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  Select,
+  Stack,
 } from '@chakra-ui/react';
 
 const options = ['Groceries', 'Rent', 'Internet', 'Entertainment'];
 
 type FormData = {
-  name: string;
   amount: string;
+  category: string;
+  name: string;
+  description: string;
 };
 
 const Expenses: React.FC = (): JSX.Element => {
   const { handleSubmit, register, formState } = useForm<FormData>();
   const { errors, isSubmitting } = formState;
 
-  const validateName = (value: any) => {
+  const validateName = (value: string) => {
     console.log(' validitng ');
     if (!value) {
       return 'Name is required';
@@ -35,7 +38,7 @@ const Expenses: React.FC = (): JSX.Element => {
     } else return true;
   };
 
-  const onSubmit = (values: any): Promise<void> => {
+  const onSubmit = (values: FormData): Promise<void> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
@@ -47,32 +50,14 @@ const Expenses: React.FC = (): JSX.Element => {
 
   console.log({ errors });
 
-  const errorMessages = {
-    name: errors.name && errors.name.message,
-  };
-
   return (
-    <Box maxWidth="800px" p={2}>
+    <Box maxWidth="500px" p={2} textAlign="center" m="auto">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Flex direction="column" justify="center" align="center">
-          <FormControl isInvalid={!!errors.name}>
-            <FormLabel htmlFor="name">Name: </FormLabel>
-            <Input
-              placeholder="name"
-              // ref={register({ validate: validateName })}
-              {...register('name', {
-                required: 'Name is required',
-                validate: validateName,
-              })}
-            />
-            <FormErrorMessage>
-              <p>{errors.name && errors.name.message}</p>
-            </FormErrorMessage>
-          </FormControl>
+        {/* <Flex direction="column" justify="center" align="center"> */}
+        <Stack spacing={5}>
           <FormControl isInvalid={!!errors.amount}>
             <FormLabel htmlFor="amount">Amount:</FormLabel>
             <NumberInput
-              defaultValue={15}
               precision={2}
               step={0.1}
               {...register('amount', { required: 'Amount is Required.' })}
@@ -84,19 +69,55 @@ const Expenses: React.FC = (): JSX.Element => {
               </NumberInputStepper>
             </NumberInput>
             <FormErrorMessage>
-              {/* {errors.amount && errors.amount.message} */}
-              <p>{errors.amount && errors.amount.message}</p>
+              <p>{errors.amount?.message}</p>
             </FormErrorMessage>
           </FormControl>
-          <Button
-            mt={4}
-            colorScheme="teal"
-            isLoading={isSubmitting}
-            type="submit"
-          >
-            Submit
-          </Button>
-        </Flex>
+          <FormControl isInvalid={!!errors.category}>
+            <FormLabel htmlFor="category">Category:</FormLabel>
+            <Select
+              {...register('category', { required: 'Category is required.' })}
+            >
+              {options.map((option) => (
+                <option value={option} key={option}>
+                  {option}
+                </option>
+              ))}
+            </Select>
+            <FormErrorMessage>
+              <p>{errors.category?.message}</p>
+            </FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={!!errors.name}>
+            <FormLabel htmlFor="name">Name: </FormLabel>
+            <Input
+              placeholder="Simple Grocery Store"
+              {...register('name', {
+                required: 'Name is required',
+                validate: validateName,
+              })}
+            />
+            <FormErrorMessage>
+              <p>{errors.name?.message}</p>
+            </FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={!!errors.description}>
+            <FormLabel htmlFor="description">Description: </FormLabel>
+            <Input placeholder="..." {...register('description')} />
+            <FormErrorMessage>
+              <p>{errors.description?.message}</p>
+            </FormErrorMessage>
+          </FormControl>
+          {/* </Flex> */}
+        </Stack>
+        <Button
+          mt={10}
+          width={'100%'}
+          colorScheme="teal"
+          isLoading={isSubmitting}
+          type="submit"
+        >
+          Submit
+        </Button>
       </form>
     </Box>
   );
