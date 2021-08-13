@@ -25,8 +25,12 @@ type FormData = {
   description: string;
 };
 
-const Expenses: React.FC = (): JSX.Element => {
-  const { handleSubmit, register, formState } = useForm<FormData>();
+interface Props {
+  userId?: string;
+}
+
+const Expenses: React.FC<Props> = ({ userId }): JSX.Element => {
+  const { handleSubmit, register, formState } = useForm();
   const { errors, isSubmitting } = formState;
 
   const validateName = (value: string) => {

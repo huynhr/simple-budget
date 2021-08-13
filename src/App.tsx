@@ -3,6 +3,8 @@ import { ChakraProvider } from '@chakra-ui/react';
 import Expenses from './Pages/Expense';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from './Pages/Login';
+import Todos from './Pages/Todos/index';
+import PrivateRoute from './Components/PrivateRoute/index';
 
 function App(): JSX.Element {
   return (
@@ -13,7 +15,7 @@ function App(): JSX.Element {
             <li>
               <Link to="/">Home</Link>
             </li>
-            <li>
+            <li>     
               <Link to="/expenses">Expenses</Link>
             </li>
             <li>
@@ -22,11 +24,15 @@ function App(): JSX.Element {
           </ul>
         </nav> */}
         <Switch>
-          <Route path="/expenses">
-            <Expenses />
-          </Route>
+          <PrivateRoute
+            path="/expenses"
+            component={<Expenses userId={'1234'} />}
+          ></PrivateRoute>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/todos">
+            <Todos />
           </Route>
           <Route path="/">
             <div>Home</div>
